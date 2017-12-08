@@ -11,6 +11,7 @@ import com.zk.zkcore.ui.LoaderCreator;
 import com.zk.zkcore.ui.LoaderStyle;
 import com.zk.zkcore.ui.MallLoader;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -29,6 +30,7 @@ public class RestClientBuilder {
     private IFailure mFailure;
     private IError mError;
     private RequestBody mBody;
+    private File mFile;
     private LoaderStyle mLoaderStyle;
     private Context mContext;
 
@@ -76,19 +78,29 @@ public class RestClientBuilder {
         return this;
     }
 
-    public final RestClientBuilder loader(Context context,LoaderStyle style){
+    public final RestClientBuilder loader(Context context, LoaderStyle style) {
         mContext = context;
         mLoaderStyle = style;
         return this;
     }
 
-    public final RestClientBuilder loader(Context context){
+    public final RestClientBuilder loader(Context context) {
         mContext = context;
         mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
         return this;
     }
 
+    public final RestClientBuilder file(File file) {
+        mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder file(String filePath) {
+        mFile = new File(filePath);
+        return this;
+    }
+
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mFailure, mError, mBody,mLoaderStyle,mContext);
+        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mFailure, mError, mBody,mFile, mLoaderStyle, mContext);
     }
 }
