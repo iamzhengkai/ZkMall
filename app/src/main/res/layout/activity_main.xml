@@ -9,10 +9,10 @@
     android:orientation="vertical"
     >
 
-    <TextView
+    <com.joanzapata.iconify.widget.IconTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="{fa-coffee}"
        />
 
 </LinearLayout>

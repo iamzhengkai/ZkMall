@@ -1,15 +1,15 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.jakewharton.butterknife'
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
 
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -26,9 +26,26 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    api "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
+    api "com.android.support:support-v4:${rootProject.ext.supportVersion}"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':zk-annotations')
+    //字体图标
+    api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2'
+    //Fragment加强库
+    api 'me.yokeyword:fragmentation:1.1.9'
+    api 'me.yokeyword:fragmentation-swipeback:1.1.9'
+    //butterknife
+    api "com.jakewharton:butterknife:${rootProject.ext.butterknifeVer}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknifeVer}"
+    //network
+//    api 'com.squareup.okio:okio:1.13.0'
+//    api 'com.squareup.okhttp3:okhttp:3.9.0'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    // 加载图标
+    api 'com.wang.avi:library:2.1.3'
 }

@@ -1,13 +1,19 @@
 package com.zk.zkmall;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.zk.zkcore.activities.ProxyActivity;
+import com.zk.zkcore.delegates.MallDelegate;
+import com.zk.zkcore.net.RestClient;
+import com.zk.zkcore.net.RestClientBuilder;
+import com.zk.zkcore.net.callback.IError;
+import com.zk.zkcore.net.callback.IFailure;
+import com.zk.zkcore.net.callback.ISuccess;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ProxyActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public MallDelegate setRootDelegate() {
+        return new TestDelegate();
     }
+
+
 }
