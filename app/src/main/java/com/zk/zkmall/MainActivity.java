@@ -1,18 +1,16 @@
 package com.zk.zkmall;
 
+import com.zk.ec.launcher.LauncherScrollDelegate;
 import com.zk.zkcore.activities.ProxyActivity;
-import com.zk.zkcore.delegates.MallDelegate;
-import com.zk.zkcore.net.RestClient;
-import com.zk.zkcore.net.RestClientBuilder;
-import com.zk.zkcore.net.callback.IError;
-import com.zk.zkcore.net.callback.IFailure;
-import com.zk.zkcore.net.callback.ISuccess;
+import com.zk.zkcore.delegates.CoreDelegate;
 
 public class MainActivity extends ProxyActivity {
 
     @Override
-    public MallDelegate setRootDelegate() {
-        return new TestDelegate();
+    public CoreDelegate setRootDelegate() {
+//        return new TestDelegate();
+//        return new LauncherDelegate();
+        return new LauncherScrollDelegate();
     }
 
 

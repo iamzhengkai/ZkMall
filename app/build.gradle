@@ -26,4 +26,5 @@ dependencies {
 //    implementation 'com.android.support:appcompat-v7:26.1.0'
     annotationProcessor project(':zk-compiler')
     api project(':zk-ec')
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
 }

@@ -1,1 +1,1 @@
-include ':app', ':zk-annotations', ':zk-compiler', ':zk-core', ':zk-ec'
+include ':app', ':zk-annotations', ':zk-compiler', ':zk-core', ':zk-ec', ':banner'

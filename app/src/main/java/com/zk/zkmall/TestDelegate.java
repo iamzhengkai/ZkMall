@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.zk.zkcore.delegates.MallDelegate;
+import com.zk.zkcore.delegates.CoreDelegate;
 import com.zk.zkcore.net.RestClient;
 import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
@@ -16,7 +16,7 @@ import com.zk.zkcore.net.callback.ISuccess;
  * Created by Administrator on 2017/12/8.
  */
 
-public class TestDelegate extends MallDelegate {
+public class TestDelegate extends CoreDelegate {
     private static final String TAG = "TestDelegate";
     @Override
     public Object setLayout() {
@@ -30,7 +30,7 @@ public class TestDelegate extends MallDelegate {
 
     private void testClient(){
         RestClient.builder()
-                .url("http://mall.520it.com/category")
+                .url("http://127.0.0.1/index")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
@@ -55,5 +55,7 @@ public class TestDelegate extends MallDelegate {
                 })
                 .build()
                 .get();
+
+        
     }
 }
