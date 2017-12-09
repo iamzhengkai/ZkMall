@@ -7,6 +7,7 @@ import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.IRequest;
 import com.zk.zkcore.net.callback.ISuccess;
 import com.zk.zkcore.net.callback.RequestCallbacks;
+import com.zk.zkcore.net.download.DownloadHandler;
 import com.zk.zkcore.ui.LoaderStyle;
 import com.zk.zkcore.ui.MallLoader;
 
@@ -28,6 +29,9 @@ public class RestClient {
     private final String URL;
     private static final WeakHashMap<String, Object> PARAMS = RestHolder.getParams();
     private final IRequest REQUEST;
+    private final String DOWNLOAD_DIR;
+    private final String EXTENSION;
+    private final String NAME;
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
     private final IError ERROR;
@@ -38,6 +42,9 @@ public class RestClient {
 
     RestClient(String url,
                Map<String, Object> params,
+               String downloadDir,
+               String extension,
+               String name,
                IRequest request,
                ISuccess success,
                IFailure failure,
@@ -57,6 +64,9 @@ public class RestClient {
         this.LOADER_STYLE = loaderStyle;
         this.CONTEXT = context;
         this.FILE = file;
+        this.DOWNLOAD_DIR = downloadDir;
+        this.EXTENSION = extension;
+        this.NAME = name;
     }
 
     public static RestClientBuilder builder() {
@@ -141,4 +151,8 @@ public class RestClient {
         request(HttpMethod.UPLOAD);
     }
 
+
+    public final void download(){
+        new DownloadHandler(URL,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR).handleDownload();
+    }
 }

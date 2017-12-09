@@ -34,6 +34,10 @@ public class RestClientBuilder {
     private LoaderStyle mLoaderStyle;
     private Context mContext;
 
+    private String mDowloadDir;
+    private String mExtension;
+    private String mName;
+
     RestClientBuilder() {
 
     }
@@ -100,7 +104,23 @@ public class RestClientBuilder {
         return this;
     }
 
+    public final RestClientBuilder dir(String dowloadDir) {
+        mDowloadDir = dowloadDir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        mExtension = extension;
+        return this;
+    }
+
+    public final RestClientBuilder name(String name) {
+        mName = name;
+        return this;
+    }
+
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mRequest, mSuccess, mFailure, mError, mBody,mFile, mLoaderStyle, mContext);
+        return new RestClient(mUrl, PARAMS, mDowloadDir, mExtension, mName,
+                mRequest, mSuccess, mFailure, mError, mBody, mFile, mLoaderStyle, mContext);
     }
 }

@@ -1,9 +1,7 @@
 package com.zk.zkcore.net;
 
-import android.os.Build;
-
 import com.zk.zkcore.app.ConfigType;
-import com.zk.zkcore.app.Mall;
+import com.zk.zkcore.app.Core;
 
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
@@ -40,7 +38,7 @@ public class RestHolder {
     }
 
     private static final class RetrofitHolder{
-        private static final String BASE_URL = (String) Mall.getConfigurations().get(ConfigType.API_HOST.name());
+        private static final String BASE_URL = (String) Core.getConfigurations().get(ConfigType.API_HOST.name());
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OkHttpHolder.OK_HTTP_CLIENT)
