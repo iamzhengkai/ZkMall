@@ -1,5 +1,7 @@
 package com.zk.zkcore.app;
 
+import android.app.Application;
+
 /**
  * Created by Administrator on 2017/12/8.
  */
@@ -9,5 +11,7 @@ public enum ConfigType {
     APPLICATION_CONTEXT,
     CONFIG_READY,
     ICON,
-    INTERCEPTOR
+    INTERCEPTOR,
+    BMOB_APPLICATION_ID,
+    BMOB_REST_API_KEY
 }

@@ -47,12 +47,12 @@ public class TestDelegate extends CoreDelegate {
                         Toast.makeText(getContext(),"Failure",Toast.LENGTH_SHORT).show();
                     }
                 })
-                .error(new IError() {
+               /* .error(new IError() {
                     @Override
                     public void onError(int errorCode, String msg) {
                         Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
                     }
-                })
+                })*/
                 .build()
                 .get();
 

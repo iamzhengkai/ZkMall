@@ -19,7 +19,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Multipart;
 
 /**
  * Created by Administrator on 2017/12/8.
@@ -28,6 +27,7 @@ import retrofit2.http.Multipart;
 public class RestClient {
     private final String URL;
     private static final WeakHashMap<String, Object> PARAMS = RestHolder.getParams();
+    private final WeakHashMap<String,Object> HEADERS = new WeakHashMap<>();
     private final IRequest REQUEST;
     private final String DOWNLOAD_DIR;
     private final String EXTENSION;
@@ -42,6 +42,7 @@ public class RestClient {
 
     RestClient(String url,
                Map<String, Object> params,
+               Map<String,Object> headers,
                String downloadDir,
                String extension,
                String name,
@@ -56,6 +57,7 @@ public class RestClient {
                ) {
         this.URL = url;
         PARAMS.putAll(params);
+        HEADERS.putAll(headers);
         this.REQUEST = request;
         this.SUCCESS = success;
         this.FAILURE = failure;
@@ -93,6 +95,9 @@ public class RestClient {
             case POST_RAW:
                 call = service.postRaw(URL,BODY);
                 break;
+            case POST_RAW_WITH_HEADER:
+                call = service.postRaw(URL,HEADERS,BODY);
+                break;
             case PUT:
                 call = service.put(URL, PARAMS);
                 break;
@@ -128,7 +133,11 @@ public class RestClient {
             if (!PARAMS.isEmpty()){
                 throw new RuntimeException("params must be empty! Try to post a raw message, but params is not empty!");
             }
-            request(HttpMethod.POST_RAW);
+            if (HEADERS.isEmpty()){
+                request(HttpMethod.POST_RAW);
+            }else {
+                request(HttpMethod.POST_RAW_WITH_HEADER);
+            }
         }
     }
 

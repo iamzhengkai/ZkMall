@@ -13,10 +13,12 @@ import com.zk.ec.R;
 import com.zk.ec.R2;
 import com.zk.zkcore.banner.GlideImageLoader;
 import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.util.SPUtils;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/12/9.
@@ -45,6 +47,7 @@ public class LauncherScrollDelegate extends CoreDelegate {
         mBanner.setImageLoader(new GlideImageLoader())
                 .setImages(images)
                 .disableLoop()
+                .setOffscreenPageLimit(images.size())
                 .setBannerStyle(BannerConfig.SPLASH_CIRCLE_INDICATOR)
                 .setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -54,9 +57,9 @@ public class LauncherScrollDelegate extends CoreDelegate {
 
                     @Override
                     public void onPageSelected(int position) {
-                        if (position == images.size()-1){
+                        if (position == images.size() - 1) {
                             mButton.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             mButton.setVisibility(View.GONE);
                         }
                         Log.d(TAG, "onPageSelected: position=" + position);
@@ -68,5 +71,15 @@ public class LauncherScrollDelegate extends CoreDelegate {
                     }
                 });
         mBanner.start();
+    }
+
+    @OnClick(R2.id.bt_start)
+    public void onClick(View view) {
+        SPUtils.setIsUsedFlag();
+        toNext();
+    }
+
+    private void toNext() {
+        //TODO 判断登陆状态，跳转到下一页面
     }
 }

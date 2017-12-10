@@ -25,6 +25,7 @@ import okhttp3.RequestBody;
 public class RestClientBuilder {
     private String mUrl;
     private static final Map<String, Object> PARAMS = RestHolder.getParams();
+    private WeakHashMap<String,Object> mHeaders = new WeakHashMap<>();
     private IRequest mRequest;
     private ISuccess mSuccess;
     private IFailure mFailure;
@@ -52,8 +53,18 @@ public class RestClientBuilder {
         return this;
     }
 
-    public final RestClientBuilder params(String key, Object value) {
+    public final RestClientBuilder param(String key, Object value) {
         PARAMS.put(key, value);
+        return this;
+    }
+
+    public final RestClientBuilder header(String key,Object value){
+        mHeaders.put(key,value);
+        return this;
+    }
+
+    public final RestClientBuilder headers(WeakHashMap<String,Object> headers){
+        mHeaders.putAll(headers);
         return this;
     }
 
@@ -120,7 +131,7 @@ public class RestClientBuilder {
     }
 
     public final RestClient build() {
-        return new RestClient(mUrl, PARAMS, mDowloadDir, mExtension, mName,
+        return new RestClient(mUrl, PARAMS,mHeaders, mDowloadDir, mExtension, mName,
                 mRequest, mSuccess, mFailure, mError, mBody, mFile, mLoaderStyle, mContext);
     }
 }

@@ -70,7 +70,7 @@ public class DownloadHandler {
                         }*/
                         }else {
                             if (ERROR !=null){
-                                ERROR.onError(response.code(),response.message());
+                                ERROR.onError(response.code(),response.message(),"");
                             }
                         }
                     }

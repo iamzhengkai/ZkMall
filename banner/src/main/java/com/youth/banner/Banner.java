@@ -104,6 +104,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         View view = LayoutInflater.from(context).inflate(mLayoutResId, this, true);
         bannerDefaultImage = (ImageView) view.findViewById(R.id.bannerDefaultImage);
         viewPager = (BannerViewPager) view.findViewById(R.id.bannerViewPager);
+        //added by zk
         indicatorHolder = (RelativeLayout) view.findViewById(R.id.indicatorHolder);
         titleView = (LinearLayout) view.findViewById(R.id.titleView);
         indicator = (LinearLayout) view.findViewById(R.id.circleIndicator);
@@ -155,7 +156,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         this.isAutoPlay = isAutoPlay;
         return this;
     }
-
+    //added by zk
     public Banner disableLoop() {
         this.canLoop = false;
         this.isAutoPlay = false;
@@ -325,7 +326,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
                 indicatorInside.setVisibility(visibility);
                 setTitleStyleUI();
                 break;
-            case BannerConfig.SPLASH_CIRCLE_INDICATOR:
+            case BannerConfig.SPLASH_CIRCLE_INDICATOR: //added by zk
                 indicator.setVisibility(visibility);
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) indicatorHolder.getLayoutParams();
                 layoutParams.bottomMargin = DensityUtil.dp2px(getContext(),BannerConfig.SPLASH_BOTTOM_MARGIN);
@@ -438,7 +439,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
             params = new LinearLayout.LayoutParams(mIndicatorWidth, mIndicatorHeight);
             params.leftMargin = mIndicatorMargin;
             params.rightMargin = mIndicatorMargin;
-
+            //modified by zk
             if (bannerStyle == BannerConfig.SPLASH_CIRCLE_INDICATOR){
                 params = new LinearLayout.LayoutParams(dm.widthPixels / 60, dm.widthPixels / 60);
                 params.leftMargin = DensityUtil.dp2px(getContext(),BannerConfig.SPLASH_PADDING_SIZE);
@@ -468,6 +469,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
         viewPager.setAdapter(adapter);
         viewPager.setFocusable(true);
+        //modified by zk
         if (canLoop) {
             viewPager.setCurrentItem(1);
         }
@@ -531,6 +533,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
      * @return 下标从0开始
      */
     public int toRealPosition(int position) {
+        //modified by zk
         if (canLoop){
             int realPosition = (position - 1) % count;
             if (realPosition < 0)

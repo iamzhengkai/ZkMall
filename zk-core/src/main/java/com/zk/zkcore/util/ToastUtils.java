@@ -269,14 +269,19 @@ public class ToastUtils {
      * @param duration 显示时长
      */
     private static void showToast(CharSequence text, int duration) {
-        if (isJumpWhenMore) cancelToast();
-        if (sToast == null) {
-            sToast = Toast.makeText(Core.getApplicationContext(), text, duration);
-        } else {
-            sToast.setText(text);
-            sToast.setDuration(duration);
+        if (isJumpWhenMore){
+            cancelToast();
+            if (sToast == null) {
+                sToast = Toast.makeText(Core.getApplicationContext(), text, duration);
+            } else {
+                sToast.setText(text);
+                sToast.setDuration(duration);
+            }
+            sToast.show();
+        }else {
+            Toast.makeText(Core.getApplicationContext(),text,duration).show();
         }
-        sToast.show();
+
     }
 
     /**

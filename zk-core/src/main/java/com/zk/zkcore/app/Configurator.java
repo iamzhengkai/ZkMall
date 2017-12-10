@@ -77,6 +77,16 @@ public class Configurator {
         return this;
     }
 
+    public final Configurator withBombApplictionId(String bombApplictionId){
+        CONFIGS.put(ConfigType.BMOB_APPLICATION_ID,bombApplictionId);
+        return this;
+    }
+
+    public final Configurator withBombRestApiKey(String bombRestApiKey){
+        CONFIGS.put(ConfigType.BMOB_REST_API_KEY,bombRestApiKey);
+        return this;
+    }
+
     public final Configurator withInterceptors(ArrayList<Interceptor> interceptors) {
         INTERCEPTORS.addAll(interceptors);
         CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);

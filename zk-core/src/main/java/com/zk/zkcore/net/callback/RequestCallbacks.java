@@ -5,6 +5,8 @@ import android.os.Handler;
 import com.zk.zkcore.ui.LoaderStyle;
 import com.zk.zkcore.ui.MallLoader;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,7 +42,16 @@ public class RequestCallbacks implements Callback<String> {
             }
         }else {
             if (ERROR != null){
-                ERROR.onError(response.code(),response.message());
+                String errorBody = "";
+                if (response.errorBody() != null){
+                    try {
+                        errorBody = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        errorBody = "";
+                    }
+                }
+                ERROR.onError(response.code(),response.message(),errorBody);
             }
         }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import com.zk.ec.R;
 import com.zk.ec.R2;
 import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.util.SPUtils;
 import com.zk.zkcore.util.ToastUtils;
 import com.zk.zkcore.util.timer.BaseTimerTask;
 import com.zk.zkcore.util.timer.ITimerListener;
@@ -52,6 +53,7 @@ public class LauncherDelegate extends CoreDelegate implements ITimerListener {
             mTimer = null;
             ToastUtils.showLongToastSafe("计时被打断！");
         }
+        toNext();
 
     }
 
@@ -111,5 +113,17 @@ public class LauncherDelegate extends CoreDelegate implements ITimerListener {
     @Override
     public void onTimerEnd() {
         ToastUtils.showLongToastSafe("计时结束!");
+        toNext();
+    }
+
+    private void toNext(){
+        if (SPUtils.getIsUsedFlag()){
+            //TODO 判断登陆状态，跳转到下一页面
+
+        }else {
+            //到引导页
+//            start(new LauncherScrollDelegate(),SINGLETASK);
+            startWithPop(new LauncherScrollDelegate());
+        }
     }
 }

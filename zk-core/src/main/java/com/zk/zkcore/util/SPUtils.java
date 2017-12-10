@@ -21,9 +21,10 @@ public class SPUtils {
             PreferenceManager.getDefaultSharedPreferences(Core.getApplicationContext());
     private static final SharedPreferences.Editor EDITOR = PREFERENCES.edit();
 
-    private static final String APP_FLAG = "app_flag";
+    private static final String IS_USED_FLAG = "first_in_flag";
 
-    private SPUtils(){}
+    private SPUtils() {
+    }
 
     /**
      * SP中写入String类型value
@@ -215,15 +216,12 @@ public class SPUtils {
         EDITOR.clear().apply();
     }
 
-    public static void setAppFlag(){
-        putBoolean(APP_FLAG,true);
+    public static void setIsUsedFlag() {
+        putBoolean(IS_USED_FLAG, true);
     }
 
-    public static boolean getAppFlag(){
-        return getBoolean(APP_FLAG);
+    public static boolean getIsUsedFlag() {
+        return getBoolean(IS_USED_FLAG);
     }
 
-    public static void clearAppFlag(){
-        remove(APP_FLAG);
-    }
 }
