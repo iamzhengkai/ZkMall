@@ -1,5 +1,6 @@
 package com.zk.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -11,8 +12,12 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.zk.ec.R;
 import com.zk.ec.R2;
+import com.zk.zkcore.app.AccountManager;
+import com.zk.zkcore.app.IUserChecker;
 import com.zk.zkcore.banner.GlideImageLoader;
 import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.ui.launcher.ILauncherListener;
+import com.zk.zkcore.ui.launcher.OnLauncherFinishTag;
 import com.zk.zkcore.util.SPUtils;
 
 import java.util.ArrayList;
@@ -30,7 +35,15 @@ public class LauncherScrollDelegate extends CoreDelegate {
     Banner mBanner;
     @BindView(R2.id.bt_start)
     AppCompatButton mButton;
+    private ILauncherListener mILauncherListener;
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
     @Override
     public Object setLayout() {
         return R.layout.delegate_scroll_launcher;
@@ -81,5 +94,20 @@ public class LauncherScrollDelegate extends CoreDelegate {
 
     private void toNext() {
         //TODO 判断登陆状态，跳转到下一页面
+        AccountManager.checkAccount(new IUserChecker() {//回调:细节未知,但是现在要用
+            @Override
+            public void onSignIn() {
+                if (mILauncherListener != null){
+                    mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                }
+            }
+
+            @Override
+            public void onNotSignIn() {
+                if (mILauncherListener != null){
+                    mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                }
+            }
+        });
     }
 }

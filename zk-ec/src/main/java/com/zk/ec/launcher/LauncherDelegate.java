@@ -1,5 +1,6 @@
 package com.zk.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
@@ -8,7 +9,12 @@ import android.view.View;
 
 import com.zk.ec.R;
 import com.zk.ec.R2;
+import com.zk.ec.sign.ISignListener;
+import com.zk.zkcore.app.AccountManager;
+import com.zk.zkcore.app.IUserChecker;
 import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.ui.launcher.ILauncherListener;
+import com.zk.zkcore.ui.launcher.OnLauncherFinishTag;
 import com.zk.zkcore.util.SPUtils;
 import com.zk.zkcore.util.ToastUtils;
 import com.zk.zkcore.util.timer.BaseTimerTask;
@@ -32,6 +38,15 @@ public class LauncherDelegate extends CoreDelegate implements ITimerListener {
     private Timer mTimer;
     private int mCount = 5;
     private CountDownTimer mCountDownTimer;
+    private ILauncherListener mILauncherListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ILauncherListener) {
+            mILauncherListener = (ILauncherListener) activity;
+        }
+    }
 
     @Override
     public Object setLayout() {
@@ -112,13 +127,27 @@ public class LauncherDelegate extends CoreDelegate implements ITimerListener {
 
     @Override
     public void onTimerEnd() {
-        ToastUtils.showLongToastSafe("计时结束!");
         toNext();
     }
 
     private void toNext(){
         if (SPUtils.getIsUsedFlag()){
             //TODO 判断登陆状态，跳转到下一页面
+            AccountManager.checkAccount(new IUserChecker() {//回调:细节未知,但是现在要用
+                @Override
+                public void onSignIn() {
+                    if (mILauncherListener != null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if (mILauncherListener != null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
 
         }else {
             //到引导页

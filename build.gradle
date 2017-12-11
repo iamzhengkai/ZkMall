@@ -18,6 +18,8 @@ buildscript {
         //for banner
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        //for greendao
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
     }
 }
 

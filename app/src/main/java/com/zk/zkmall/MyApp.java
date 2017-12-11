@@ -2,7 +2,9 @@ package com.zk.zkmall;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.zk.ec.database.DatabaseManager;
 import com.zk.ec.icon.FontEcMoudle;
 import com.zk.zkcore.app.Core;
 import com.zk.zkcore.net.interceptors.DebugInterceptor;
@@ -25,5 +27,20 @@ public class MyApp extends Application {
                 .withInterceptor(new DebugInterceptor("index",R.raw.test))
                 .withInterceptor(new GlobalHearInterceptor())
                 .configure();
+
+        initStetho();
+        DatabaseManager.getInstance().init(this);
+
+    }
+
+    private void initStetho(){
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build()
+        );
+
+        ;
     }
 }

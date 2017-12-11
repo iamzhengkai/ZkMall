@@ -52,7 +52,7 @@
                     android:id="@+id/et_sign_in_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="邮箱"
+                    android:hint="邮箱/手机号码/用户名"
                     android:inputType="textEmailAddress"
                     />
             </android.support.design.widget.TextInputLayout>

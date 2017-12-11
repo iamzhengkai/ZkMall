@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -43,18 +44,22 @@ dependencies {
     api "com.jakewharton:butterknife:${rootProject.ext.butterknifeVer}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknifeVer}"
     //network
-    //    api 'com.squareup.okio:okio:1.13.0'
-    //    api 'com.squareup.okhttp3:okhttp:3.9.0'
+    api 'com.squareup.okio:okio:1.13.0'
+    api 'com.squareup.okhttp3:okhttp:3.9.0'
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.squareup.retrofit2:converter-scalars:2.3.0'
     // 加载图标
     api 'com.wang.avi:library:2.1.3'
     //banner switch to project dependence
     //    api 'com.youth.banner:banner:1.4.10'
+    api project(':banner')
     //glide
     api 'com.github.bumptech.glide:glide:3.8.0'
-    api project(':banner')
-
-//    api 'com.alibaba:fastjson:1.1.67.android'
-    api 'com.google.code.gson:gson:2.8.2'
+    //json
+    api 'com.alibaba:fastjson:1.1.67.android'
+//    api 'com.google.code.gson:gson:2.8.2'
+    //log
+    api 'com.orhanobut:logger:2.1.1'
+    //greendao
+    api 'org.greenrobot:greendao:3.2.2'
 }

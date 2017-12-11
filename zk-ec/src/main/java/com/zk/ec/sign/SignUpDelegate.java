@@ -1,16 +1,16 @@
 package com.zk.ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import com.zk.ec.R;
 import com.zk.ec.R2;
 import com.zk.ec.bean.ResponseError;
@@ -21,6 +21,7 @@ import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.ISuccess;
 import com.zk.zkcore.util.ToastUtils;
+import com.zk.zkcore.util.log.LoggerCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,6 +54,16 @@ public class SignUpDelegate extends CoreDelegate {
     private String mPhone;
     private String mPassword;
     private String mRepassword;
+    private ISignListener mISignListener;
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ISignListener){
+            mISignListener = (ISignListener)activity;
+        }
+    }
 
     @Override
     public Object setLayout() {
@@ -129,19 +140,18 @@ public class SignUpDelegate extends CoreDelegate {
             RestClient.builder()
                     .url("https://api.bmob.cn/1/users")
                     .header("Content-Type","application/json")
-                    .raw(new Gson().toJson(user))
+                    .raw(JSON.toJSONString(user))
                     .success(new ISuccess() {
                         @Override
                         public void onSuccess(String response) {
-                            ToastUtils.showLongToast("注册成功!");
                             try {
                                 JSONObject jsonObject = new JSONObject(response);
                                 final String objectId = jsonObject.getString("objectId");
                                 if (!TextUtils.isEmpty(objectId)){
                                     user.setObjectId(objectId);
                                 }
-                                //TODO save user info
-
+                                //save user info
+                                SignHandler.onSignUpSuccess(user,mISignListener);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -157,47 +167,12 @@ public class SignUpDelegate extends CoreDelegate {
                     .error(new IError() {
                         @Override
                         public void onError(int errorCode, String msg, String errorBody) {
-                            Log.e(TAG, "onError: errorBody=" + errorBody);
-                            if (!TextUtils.isEmpty(errorBody)){
-                                ResponseError error = new Gson().fromJson(errorBody,ResponseError.class);
-                                if (error != null){
-                                    ToastUtils.showLongToast("注册失败: 错误码: " + error.getCode() + "; 错误提示: " + error.getError());
-                                    return;
-                                }
-                            }
-                            ToastUtils.showLongToast("注册失败: 错误码 = " + errorCode + "; 错误提示: " + msg );
+                            SignHandler.onSignUpError(errorCode,msg,errorBody);
                         }
                     })
                     .build()
                     .post();
-//            ToastUtils.showLongToast("校验通过!");
         }
 
     }
-
-    /*private void clearError(TextInputEditText inputText){
-        ViewParent viewParent = inputText.getParent();
-        if (viewParent != null && viewParent instanceof TextInputLayout) {
-            final TextInputLayout inputLayout = (TextInputLayout) viewParent;
-            inputLayout.setErrorEnabled(false);
-
-            inputText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    inputLayout.setErrorEnabled(false);
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-        }
-    }*/
-
 }
