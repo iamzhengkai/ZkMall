@@ -14,6 +14,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.youth.banner.util.DensityUtil;
 import com.zk.ec.R;
 import com.zk.ec.R2;
+import com.zk.ec.main.EcBottomDelegate;
 import com.zk.zkcore.delegates.bottom.BottomItemDelegate;
 import com.zk.zkcore.refresh.RefreshHandler;
 import com.zk.zkcore.ui.recycler.BaseDecoration;
@@ -49,34 +50,15 @@ public class IndexDelegate extends BottomItemDelegate {
         initRecyclerView();
         RefreshHandler refreshHandler = RefreshHandler.create(mSrlIndex,mRvIndex,new IndexDataConvertor());
         refreshHandler.firstPage("https://api.bmob.cn/1/classes/tab_index_data");
-//        mRefreshHandler.firstPage("https://api.bmob.cn/1/classes/tab_index_data");
-      /*  RestClient.builder()
-                .url("https://api.bmob.cn/1/classes/tab_index_data")
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        mSrlIndex.setRefreshing(false);
-                        ToastUtils.showShortToast(response);
-                        LoggerCompat.json(response);
-                        IndexDataConvertor convertor = new IndexDataConvertor(response);
-                        ArrayList<MultipleItemEntity> convert = convertor.convert();
-                        LoggerCompat.d(convert.get(0).getFields());
-
-                        MultipleRecyclerAdapter adapter = MultipleRecyclerAdapter.create(convert);
-                        mRvIndex.setLayoutManager(new GridLayoutManager(getContext(),4));
-                        mRvIndex.setAdapter(adapter);
-
-
-                    }
-                })
-                .build()
-                .get();*/
     }
 
     private void initRecyclerView(){
         final GridLayoutManager manager = new GridLayoutManager(getContext(),4);
         mRvIndex.setLayoutManager(manager);
         mRvIndex.addItemDecoration(BaseDecoration.create(ContextCompat.getColor(_mActivity,R.color.wechat_gray),4));
+        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        //设置点击监听
+        mRvIndex.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 
     @Override

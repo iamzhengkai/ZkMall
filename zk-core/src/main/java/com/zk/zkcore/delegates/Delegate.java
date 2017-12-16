@@ -5,4 +5,7 @@ package com.zk.zkcore.delegates;
  */
 
 public abstract class Delegate extends PermissionCheckDelegate {
+    public <T extends Delegate> T getParentDelegate(){
+        return (T) getParentFragment();
+    }
 }

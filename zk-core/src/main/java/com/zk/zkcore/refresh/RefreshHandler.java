@@ -68,8 +68,6 @@ public class RefreshHandler implements
                         BEAN.setTotal(data.getInteger("total"));
                         BEAN.setPageSize(data.getInteger("page_size"));
                         mAdapter = MultipleRecyclerAdapter.create(CONVERTOR.setJsonData(response));
-                        /*BEAN.setCurrentCount(6);
-                        BEAN.addIndex();*/
                         mAdapter.setOnLoadMoreListener(RefreshHandler.this,RECYCLERVIEW);
                         RECYCLERVIEW.setAdapter(mAdapter);
                         BEAN.addIndex();
