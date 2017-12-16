@@ -1,11 +1,9 @@
 package com.zk.zkcore.net;
 
 import com.zk.zkcore.app.ConfigType;
-import com.zk.zkcore.app.Configurator;
-import com.zk.zkcore.app.Core;
+import com.zk.zkcore.app.ConfigurationManager;
 
 import java.util.ArrayList;
-import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -33,16 +31,17 @@ public class RestHolder {
         return RetrofitHolder.RETROFIT_CLIENT;
     }
 
-    private static final class ParamsHolder {
+    //PARAMS 不能是全局的，否则所有请求的请求参数会混在一起
+  /*  private static final class ParamsHolder {
         private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
-    }
+    }*/
 
-    public static WeakHashMap<String, Object> getParams() {
+    /*public static WeakHashMap<String, Object> getParams() {
         return ParamsHolder.PARAMS;
-    }
+    }*/
 
     private static final class RetrofitHolder {
-        private static final String BASE_URL = (String) Core.getConfigurations().get(ConfigType.API_HOST);
+        private static final String BASE_URL = (String) ConfigurationManager.getConfigurations().get(ConfigType.API_HOST);
         private static final Retrofit RETROFIT_CLIENT = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OkHttpHolder.OK_HTTP_CLIENT)
@@ -54,12 +53,24 @@ public class RestHolder {
         private static final int TIME_OUT = 60;
         private static final OkHttpClient.Builder BUILDER = new OkHttpClient.Builder();
         private static final ArrayList<Interceptor> INTERCEPTORS =
-                Core.getConfiguration(ConfigType.INTERCEPTOR);
+                ConfigurationManager.getConfiguration(ConfigType.INTERCEPTOR);
+        private static final ArrayList<Interceptor> NETWORK_INTERCEPTORS =
+                ConfigurationManager.getConfiguration(ConfigType.NETWORK_INTERCEPTOR);
 
         private static OkHttpClient.Builder addInterceptors(){
             if (INTERCEPTORS != null && !INTERCEPTORS.isEmpty()){
                 for (Interceptor interceptor : INTERCEPTORS) {
                     BUILDER.addInterceptor(interceptor);
+                }
+            }
+            addNetworkInterceptors();
+            return BUILDER;
+        }
+
+        private static OkHttpClient.Builder addNetworkInterceptors(){
+            if (NETWORK_INTERCEPTORS != null && !NETWORK_INTERCEPTORS.isEmpty()){
+                for (Interceptor interceptor : NETWORK_INTERCEPTORS) {
+                    BUILDER.addNetworkInterceptor(interceptor);
                 }
             }
             return BUILDER;

@@ -9,10 +9,9 @@ import android.view.View;
 
 import com.zk.ec.R;
 import com.zk.ec.R2;
-import com.zk.ec.sign.ISignListener;
 import com.zk.zkcore.app.AccountManager;
 import com.zk.zkcore.app.IUserChecker;
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.delegates.Delegate;
 import com.zk.zkcore.ui.launcher.ILauncherListener;
 import com.zk.zkcore.ui.launcher.OnLauncherFinishTag;
 import com.zk.zkcore.util.SPUtils;
@@ -30,7 +29,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/9.
  */
 
-public class LauncherDelegate extends CoreDelegate implements ITimerListener {
+public class LauncherDelegate extends Delegate implements ITimerListener {
 
     @BindView(R2.id.tv_launcher_timer)
     AppCompatTextView mTvLauncherTimer;

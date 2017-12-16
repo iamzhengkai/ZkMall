@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by Administrator on 2017/12/9.
  */
 
-public class MallLoader {
+public class Loader {
     private static final int LOADER_SIZE_SCALE = 8;
     private static final int LOADER_OFFSET_SCALE = 10;
     private static final String DEFALUT_LOADER = LoaderStyle.BallClipRotatePulseIndicator.name();

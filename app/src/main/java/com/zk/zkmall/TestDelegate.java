@@ -6,9 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.delegates.Delegate;
 import com.zk.zkcore.net.RestClient;
-import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.ISuccess;
 
@@ -16,7 +15,7 @@ import com.zk.zkcore.net.callback.ISuccess;
  * Created by Administrator on 2017/12/8.
  */
 
-public class TestDelegate extends CoreDelegate {
+public class TestDelegate extends Delegate {
     private static final String TAG = "TestDelegate";
     @Override
     public Object setLayout() {
@@ -41,9 +40,9 @@ public class TestDelegate extends CoreDelegate {
                 })
                 .failure(new IFailure() {
                     @Override
-                    public void onFaiure(Throwable throwable) {
+                    public void onFailure(Throwable throwable) {
                         throwable.printStackTrace();
-                        Log.e(TAG, "onFaiure: " + throwable.getMessage());
+                        Log.e(TAG, "onFailure: " + throwable.getMessage());
                         Toast.makeText(getContext(),"Failure",Toast.LENGTH_SHORT).show();
                     }
                 })

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--加载对话框样式-->
     <style name="loading_dialog" parent="@android:style/Theme.Dialog">
         <!--去掉边框-->
         <item name="android:windowFrame">@null</item>
@@ -15,5 +17,14 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!--全屏-->
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--透明Activity样式-->
+    <style name="Theme.AppCompat.Translucent">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
     </style>
 </resources>

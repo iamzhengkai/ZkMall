@@ -13,15 +13,13 @@ import android.view.View;
 import com.alibaba.fastjson.JSON;
 import com.zk.ec.R;
 import com.zk.ec.R2;
-import com.zk.ec.bean.ResponseError;
 import com.zk.ec.bean.User;
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.delegates.Delegate;
 import com.zk.zkcore.net.RestClient;
 import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.ISuccess;
 import com.zk.zkcore.util.ToastUtils;
-import com.zk.zkcore.util.log.LoggerCompat;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +31,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/10.
  */
 
-public class SignUpDelegate extends CoreDelegate {
+public class SignUpDelegate extends Delegate {
 
     @BindView(R2.id.et_sign_up_name)
     TextInputEditText mEtSignUpName;
@@ -160,7 +158,7 @@ public class SignUpDelegate extends CoreDelegate {
                     })
                     .failure(new IFailure() {
                         @Override
-                        public void onFaiure(Throwable throwable) {
+                        public void onFailure(Throwable throwable) {
                             ToastUtils.showLongToast("网络错误: " + throwable.getMessage());
                         }
                     })

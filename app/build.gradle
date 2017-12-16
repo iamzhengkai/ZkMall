@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
+        //注意：微信开放平台上的applicationId字段必须与此相同，同时代码包名也必须与此相同
         applicationId "com.zk.zkmall"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -24,6 +25,7 @@ dependencies {
 //    androidTestImplementation 'com.android.support.test:runner:1.0.1'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 //    implementation 'com.android.support:appcompat-v7:26.1.0'
+    provided project(':zk-annotations')
     annotationProcessor project(':zk-compiler')
     api project(':zk-ec')
     compile 'com.facebook.stetho:stetho:1.5.0'

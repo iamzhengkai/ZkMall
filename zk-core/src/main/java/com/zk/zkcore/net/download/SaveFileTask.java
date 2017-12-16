@@ -7,7 +7,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
-import com.zk.zkcore.app.Core;
+import com.zk.zkcore.app.ConfigurationManager;
 import com.zk.zkcore.net.callback.IRequest;
 import com.zk.zkcore.net.callback.ISuccess;
 import com.zk.zkcore.util.FileUtil;
@@ -98,6 +98,6 @@ public class SaveFileTask extends AsyncTask<Object,Void,File> {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
         install.setDataAndType(Uri.fromFile(file),type);
-        Core.getApplicationContext().startActivity(install);
+        ConfigurationManager.getApplicationContext().startActivity(install);
     }
 }

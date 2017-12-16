@@ -1,8 +1,16 @@
 apply plugin: 'java-library'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.squareup:javapoet:1.9.0'
+    implementation 'com.google.auto.service:auto-service:1.0-rc3'
+    implementation 'com.google.auto:auto-common:0.8'
+    api project(':zk-annotations')
 }
 
 sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}

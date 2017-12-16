@@ -9,7 +9,7 @@ import com.zk.zkcore.net.callback.ISuccess;
 import com.zk.zkcore.net.callback.RequestCallbacks;
 import com.zk.zkcore.net.download.DownloadHandler;
 import com.zk.zkcore.ui.LoaderStyle;
-import com.zk.zkcore.ui.MallLoader;
+import com.zk.zkcore.ui.Loader;
 
 import java.io.File;
 import java.util.Map;
@@ -26,7 +26,7 @@ import retrofit2.Call;
 
 public class RestClient {
     private final String URL;
-    private static final WeakHashMap<String, Object> PARAMS = RestHolder.getParams();
+    private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     private final WeakHashMap<String,Object> HEADERS = new WeakHashMap<>();
     private final IRequest REQUEST;
     private final String DOWNLOAD_DIR;
@@ -83,7 +83,7 @@ public class RestClient {
         }
 
         if (LOADER_STYLE != null){
-            MallLoader.show(CONTEXT,LOADER_STYLE);
+            Loader.show(CONTEXT,LOADER_STYLE);
         }
         switch (method) {
             case GET:
@@ -162,6 +162,6 @@ public class RestClient {
 
 
     public final void download(){
-        new DownloadHandler(URL,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR).handleDownload();
+        new DownloadHandler(URL,PARAMS,REQUEST,DOWNLOAD_DIR,EXTENSION,NAME,SUCCESS,FAILURE,ERROR).handleDownload();
     }
 }

@@ -1,5 +1,8 @@
 package com.zk.zkcore.app;
 
+import android.app.Activity;
+import android.os.Handler;
+
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -9,6 +12,8 @@ import java.util.HashMap;
 import okhttp3.Interceptor;
 
 /**
+ * 配置信息存储类，
+ * 实际存储配置信息，同时提供配置设置以及存取接口
  * Created by Administrator on 2017/12/8.
  */
 
@@ -16,9 +21,12 @@ public class Configurator {
     private static final HashMap<Object, Object> CONFIGS = new HashMap<>();
     private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
     private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
+    private static final ArrayList<Interceptor> NETWORK_INTERCEPTORS = new ArrayList<>();
+    private static final Handler HANDLER = new Handler();
 
     private Configurator() {
         CONFIGS.put(ConfigType.CONFIG_READY, false);
+        CONFIGS.put(ConfigType.HANDLER,HANDLER);
     }
 
     public static Configurator getInstance() {
@@ -71,11 +79,34 @@ public class Configurator {
         return this;
     }
 
+    public final Configurator withWeChatAppId(String appId) {
+        CONFIGS.put(ConfigType.WE_CHAT_APP_ID, appId);
+        return this;
+    }
+
+    public final Configurator withWeChatAppSecret(String appSecret) {
+        CONFIGS.put(ConfigType.WE_CHAT_APP_SECRET, appSecret);
+        return this;
+    }
+
+    public final Configurator withActivity(Activity activity){
+        CONFIGS.put(ConfigType.ACTIVITY,activity);
+        return this;
+    }
+
     public final Configurator withInterceptor(Interceptor interceptor) {
         INTERCEPTORS.add(interceptor);
         CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
         return this;
     }
+
+    public final Configurator withNetworkInterceptor(Interceptor interceptor) {
+        NETWORK_INTERCEPTORS.add(interceptor);
+        CONFIGS.put(ConfigType.NETWORK_INTERCEPTOR, NETWORK_INTERCEPTORS);
+        return this;
+    }
+
+
 
     public final Configurator withBombApplictionId(String bombApplictionId){
         CONFIGS.put(ConfigType.BMOB_APPLICATION_ID,bombApplictionId);

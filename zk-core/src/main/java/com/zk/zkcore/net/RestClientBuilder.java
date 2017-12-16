@@ -1,15 +1,12 @@
 package com.zk.zkcore.net;
 
 import android.content.Context;
-import android.view.ViewGroup;
 
 import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.IRequest;
 import com.zk.zkcore.net.callback.ISuccess;
-import com.zk.zkcore.ui.LoaderCreator;
 import com.zk.zkcore.ui.LoaderStyle;
-import com.zk.zkcore.ui.MallLoader;
 
 import java.io.File;
 import java.util.Map;
@@ -24,7 +21,7 @@ import okhttp3.RequestBody;
 
 public class RestClientBuilder {
     private String mUrl;
-    private static final Map<String, Object> PARAMS = RestHolder.getParams();
+    private static final WeakHashMap<String, Object> PARAMS = new WeakHashMap<>();
     private WeakHashMap<String,Object> mHeaders = new WeakHashMap<>();
     private IRequest mRequest;
     private ISuccess mSuccess;

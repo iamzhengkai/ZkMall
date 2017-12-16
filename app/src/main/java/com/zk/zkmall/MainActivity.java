@@ -5,14 +5,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 
 import com.zk.ec.launcher.LauncherDelegate;
+import com.zk.ec.main.EcBottomDelegate;
 import com.zk.ec.sign.ISignListener;
-import com.zk.ec.sign.SignUpDelegate;
 import com.zk.ec.sign.SigninDelegate;
 import com.zk.zkcore.activities.ProxyActivity;
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.app.ConfigurationManager;
+import com.zk.zkcore.delegates.Delegate;
 import com.zk.zkcore.ui.launcher.ILauncherListener;
 import com.zk.zkcore.ui.launcher.OnLauncherFinishTag;
 import com.zk.zkcore.util.ToastUtils;
+
+import qiu.niorgai.StatusBarCompat;
 
 public class MainActivity extends ProxyActivity implements ISignListener, ILauncherListener {
 
@@ -23,10 +26,13 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         if (actionBar != null) {
             actionBar.hide();
         }
+        ConfigurationManager.getConfigurator().withActivity(this);
+//        StatusBarUtil.setTransparent(this);
+        StatusBarCompat.translucentStatusBar(this);
     }
 
     @Override
-    public CoreDelegate setRootDelegate() {
+    public Delegate setRootDelegate() {
 //        return new TestDelegate();
         return new LauncherDelegate();
 //        return new LauncherScrollDelegate();
@@ -37,13 +43,13 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
     @Override
     public void onSignInSuccess() {
         ToastUtils.showLongToast("登陆成功!");
-        startWithPop(new TestDelegate());
+        startWithPop(new EcBottomDelegate());
     }
 
     @Override
     public void onSignUpSuccess() {
         ToastUtils.showLongToast("注册成功!");
-        startWithPop(new TestDelegate());
+        startWithPop(new EcBottomDelegate());
     }
 
     @Override
@@ -51,7 +57,7 @@ public class MainActivity extends ProxyActivity implements ISignListener, ILaunc
         switch (tag) {
             case SIGNED:
                 ToastUtils.showLongToast("启动结束,用户已登陆");
-                startWithPop(new TestDelegate());
+                startWithPop(new EcBottomDelegate());
                 break;
             case NOT_SIGNED:
                 ToastUtils.showLongToast("启动结束,用户没有登陆");

@@ -5,5 +5,5 @@ package com.zk.zkcore.net.callback;
  */
 
 public interface IFailure {
-    void onFaiure(Throwable throwable);
+    void onFailure(Throwable throwable);
 }

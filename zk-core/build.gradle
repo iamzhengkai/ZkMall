@@ -46,6 +46,7 @@ dependencies {
     //network
     api 'com.squareup.okio:okio:1.13.0'
     api 'com.squareup.okhttp3:okhttp:3.9.0'
+	api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.squareup.retrofit2:converter-scalars:2.3.0'
     // 加载图标
@@ -55,6 +56,9 @@ dependencies {
     api project(':banner')
     //glide
     api 'com.github.bumptech.glide:glide:3.8.0'
+	implementation 'com.github.bumptech.glide:okhttp3-integration:1.5.0@aar'
+	compile 'com.squareup.picasso:picasso:2.5.2'
+	
     //json
     api 'com.alibaba:fastjson:1.1.67.android'
 //    api 'com.google.code.gson:gson:2.8.2'
@@ -62,4 +66,16 @@ dependencies {
     api 'com.orhanobut:logger:2.1.1'
     //greendao
     api 'org.greenrobot:greendao:3.2.2'
+	//wechat
+	api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+	//recyclerview
+	api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
+	api 'com.choices.divider:RecyclerView_Divider:1.0.0'
+	//statusbar 
+	//api 'com.jaeger.statusbarutil:library:1.4.0'
+	api ('com.github.niorgai:StatusBarCompat:2.1.4', {exclude group: 'com.android.support'})
+	//Google AutoValue
+	provided 'com.google.auto.value:auto-value:1.5'
+	annotationProcessor "com.google.auto.value:auto-value:1.5"
+	api 'com.android.support:multidex:1.0.2'
 }

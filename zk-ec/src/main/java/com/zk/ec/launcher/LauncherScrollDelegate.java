@@ -15,7 +15,7 @@ import com.zk.ec.R2;
 import com.zk.zkcore.app.AccountManager;
 import com.zk.zkcore.app.IUserChecker;
 import com.zk.zkcore.banner.GlideImageLoader;
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.delegates.Delegate;
 import com.zk.zkcore.ui.launcher.ILauncherListener;
 import com.zk.zkcore.ui.launcher.OnLauncherFinishTag;
 import com.zk.zkcore.util.SPUtils;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/9.
  */
 
-public class LauncherScrollDelegate extends CoreDelegate {
+public class LauncherScrollDelegate extends Delegate {
     private static final String TAG = "LauncherScrollDelegate";
     @BindView(R2.id.banner)
     Banner mBanner;

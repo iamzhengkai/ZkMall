@@ -3,7 +3,7 @@ package com.zk.zkcore.net.callback;
 import android.os.Handler;
 
 import com.zk.zkcore.ui.LoaderStyle;
-import com.zk.zkcore.ui.MallLoader;
+import com.zk.zkcore.ui.Loader;
 
 import java.io.IOException;
 
@@ -67,7 +67,7 @@ public class RequestCallbacks implements Callback<String> {
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    MallLoader.dismiss();
+                    Loader.dismiss();
                 }
             },2000);
 
@@ -77,7 +77,7 @@ public class RequestCallbacks implements Callback<String> {
     @Override
     public void onFailure(Call<String> call, Throwable t) {
         if (FAILURE != null){
-            FAILURE.onFaiure(t);
+            FAILURE.onFailure(t);
         }
 
         if (REQUEST != null){

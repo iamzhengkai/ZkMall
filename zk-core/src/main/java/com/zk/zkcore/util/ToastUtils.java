@@ -5,9 +5,7 @@ import android.os.Looper;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
 
-import com.zk.zkcore.app.Core;
-
-import butterknife.internal.Utils;
+import com.zk.zkcore.app.ConfigurationManager;
 
 /**
  * <pre>
@@ -237,7 +235,7 @@ public class ToastUtils {
      * @param duration 显示时长
      */
     private static void showToast(@StringRes int resId, int duration) {
-        showToast(Core.getApplicationContext().getResources().getText(resId).toString(), duration);
+        showToast(ConfigurationManager.getApplicationContext().getResources().getText(resId).toString(), duration);
     }
 
     /**
@@ -248,7 +246,7 @@ public class ToastUtils {
      * @param args     参数
      */
     private static void showToast(@StringRes int resId, int duration, Object... args) {
-        showToast(String.format(Core.getApplicationContext().getResources().getString(resId), args), duration);
+        showToast(String.format(ConfigurationManager.getApplicationContext().getResources().getString(resId), args), duration);
     }
 
     /**
@@ -272,14 +270,14 @@ public class ToastUtils {
         if (isJumpWhenMore){
             cancelToast();
             if (sToast == null) {
-                sToast = Toast.makeText(Core.getApplicationContext(), text, duration);
+                sToast = Toast.makeText(ConfigurationManager.getApplicationContext(), text, duration);
             } else {
                 sToast.setText(text);
                 sToast.setDuration(duration);
             }
             sToast.show();
         }else {
-            Toast.makeText(Core.getApplicationContext(),text,duration).show();
+            Toast.makeText(ConfigurationManager.getApplicationContext(),text,duration).show();
         }
 
     }

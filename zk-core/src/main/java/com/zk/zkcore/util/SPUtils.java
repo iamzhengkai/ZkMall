@@ -3,7 +3,7 @@ package com.zk.zkcore.util;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.zk.zkcore.app.Core;
+import com.zk.zkcore.app.ConfigurationManager;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import java.util.Map;
 public class SPUtils {
 
     private static final SharedPreferences PREFERENCES =
-            PreferenceManager.getDefaultSharedPreferences(Core.getApplicationContext());
+            PreferenceManager.getDefaultSharedPreferences(ConfigurationManager.getApplicationContext());
     private static final SharedPreferences.Editor EDITOR = PREFERENCES.edit();
 
     private static final String IS_USED_FLAG = "first_in_flag";

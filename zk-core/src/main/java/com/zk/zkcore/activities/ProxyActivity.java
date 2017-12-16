@@ -7,7 +7,7 @@ import android.support.v7.widget.ContentFrameLayout;
 import android.view.Window;
 
 import com.zk.zkcore.R;
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.delegates.Delegate;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -16,7 +16,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  */
 
 public abstract class ProxyActivity extends SupportActivity{
-    public abstract CoreDelegate setRootDelegate();
+    public abstract Delegate setRootDelegate();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

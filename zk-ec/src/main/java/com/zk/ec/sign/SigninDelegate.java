@@ -8,19 +8,19 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zk.ec.R;
 import com.zk.ec.R2;
-import com.zk.ec.bean.User;
-import com.zk.zkcore.delegates.CoreDelegate;
+import com.zk.zkcore.delegates.Delegate;
 import com.zk.zkcore.net.RestClient;
 import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.ISuccess;
 import com.zk.zkcore.util.ToastUtils;
-import com.zk.zkcore.util.log.LoggerCompat;
+import com.zk.zkcore.wechat.WeChat;
+import com.zk.zkcore.wechat.callbacks.IWeChatSignInCallback;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/12/10.
  */
 
-public class SigninDelegate extends CoreDelegate {
+public class SigninDelegate extends Delegate {
     @BindView(R2.id.et_sign_in_email)
     TextInputEditText mEtEmail;
     @BindView(R2.id.et_sign_in_password)
@@ -99,8 +99,8 @@ public class SigninDelegate extends CoreDelegate {
                 RestClient.builder()
                         .url("https://api.bmob.cn/1/login")
                         .header("Content-Type", "application/json")
-                        .param("username",mEmail)
-                        .param("password",mPassword)
+                        .param("username", mEmail)
+                        .param("password", mPassword)
                         .success(new ISuccess() {
                             @Override
                             public void onSuccess(String response) {
@@ -109,7 +109,7 @@ public class SigninDelegate extends CoreDelegate {
                         })
                         .failure(new IFailure() {
                             @Override
-                            public void onFaiure(Throwable throwable) {
+                            public void onFailure(Throwable throwable) {
                                 ToastUtils.showLongToast("网络错误: " + throwable.getMessage());
                             }
                         })
@@ -127,7 +127,14 @@ public class SigninDelegate extends CoreDelegate {
 
     @OnClick(R2.id.icon_sign_in_wechat)
     public void onClickWechat() {
-
+        WeChat.getInstance()
+                .onSignInSuccess(new IWeChatSignInCallback() {
+                    @Override
+                    public void onSignInSuccess(String userInfo) {
+                        ToastUtils.showLongToast(userInfo);
+                    }
+                })
+                .signIn();
     }
 
     @OnClick(R2.id.tv_link_sign_up)

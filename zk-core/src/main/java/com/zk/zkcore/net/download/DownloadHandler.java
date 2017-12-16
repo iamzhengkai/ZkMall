@@ -7,7 +7,6 @@ import com.zk.zkcore.net.callback.IError;
 import com.zk.zkcore.net.callback.IFailure;
 import com.zk.zkcore.net.callback.IRequest;
 import com.zk.zkcore.net.callback.ISuccess;
-import com.zk.zkcore.net.callback.RequestCallbacks;
 
 import java.util.WeakHashMap;
 
@@ -22,7 +21,7 @@ import retrofit2.Response;
 
 public class DownloadHandler {
     private final String URL;
-    private static final WeakHashMap<String, Object> PARAMS = RestHolder.getParams();
+    private final WeakHashMap<String, Object> PARAMS;
     private final IRequest REQUEST;
     private final String DOWNLOAD_DIR;
     private final String EXTENSION;
@@ -31,22 +30,24 @@ public class DownloadHandler {
     private final IFailure FAILURE;
     private final IError ERROR;
 
-    public DownloadHandler(String URL,
-                           IRequest REQUEST,
-                           String DOWNLOAD_DIR,
-                           String EXTENSION,
-                           String NAME,
-                           ISuccess SUCCESS,
-                           IFailure FAILURE,
-                           IError ERROR) {
-        this.URL = URL;
-        this.REQUEST = REQUEST;
-        this.DOWNLOAD_DIR = DOWNLOAD_DIR;
-        this.EXTENSION = EXTENSION;
-        this.NAME = NAME;
-        this.SUCCESS = SUCCESS;
-        this.FAILURE = FAILURE;
-        this.ERROR = ERROR;
+    public DownloadHandler(String url,
+                           WeakHashMap<String, Object> params,
+                           IRequest request,
+                           String download_dir,
+                           String extension,
+                           String name,
+                           ISuccess success,
+                           IFailure failure,
+                           IError error) {
+        this.URL = url;
+        this.PARAMS = params;
+        this.REQUEST = request;
+        this.DOWNLOAD_DIR = download_dir;
+        this.EXTENSION = extension;
+        this.NAME = name;
+        this.SUCCESS = success;
+        this.FAILURE = failure;
+        this.ERROR = error;
     }
 
     public final void handleDownload() {
@@ -78,7 +79,7 @@ public class DownloadHandler {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         if (FAILURE != null){
-                            FAILURE.onFaiure(t);
+                            FAILURE.onFailure(t);
                         }
                     }
                 });
